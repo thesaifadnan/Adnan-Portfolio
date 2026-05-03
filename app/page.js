@@ -1,17 +1,29 @@
-import Header from "./components/homeHeader";
-import Hero from "./components/hero";
-import Footer from "./components/Footer";
-import AboutMe from "./components/about-me";
-import Gallery from "./components/gallery";
+import Header       from "@/components/Header";
+import Hero         from "@/components/Hero";
+import TechScroller from "@/components/TechScroller";
+import About        from "@/components/About";
+import ResumeBanner from "@/components/ResumeBanner";
+import LabSection   from "@/components/LabSection";
+import MemoryGame   from "@/components/MemoryGame";
+import ContactForm  from "@/components/ContactForm";
+import Footer       from "@/components/Footer";
+import EasterEgg    from "@/components/EasterEggs";
 
-export default function Home(){
-  return(
+export default function HomePage() {
+  return (
     <>
-      <Header/>
-      <Hero/>
-      {/* <AboutMe/> */}
-      <Gallery/>
-      <Footer/>
+      <Header />
+      <main>
+        <Hero />
+        <TechScroller />
+        <About />
+        <ResumeBanner />
+        <LabSection />
+        <MemoryGame />
+        <ContactForm />
+        <EasterEgg />
+      </main>
+      <Footer />
     </>
   );
 }

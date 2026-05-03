@@ -1,29 +1,29 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "Adnan Sheikh's Portfolio",
-  description: "Adnan Sheikh is a Developer and a Designer.",
+  title: "Adnan Sheikh — Full Stack Dev Portfolio",
+  description: "Lab assignments, source code & live demos for Full Stack Web Development",
+  metadataBase: new URL("https://adnansheikh.com"),
+  openGraph: {
+    title: "Adnan Sheikh — Full Stack Dev Portfolio",
+    description: "Practical implementations of HTML, CSS, JS, PHP, React",
+    url: "https://adnansheikh.com",
+    siteName: "Adnan Sheikh",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="bg-black text-white/90 antialiased">{children}</body>
     </html>
   );
 }
