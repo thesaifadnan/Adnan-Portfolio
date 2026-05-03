@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 
-
 const NAV = [
   { label: "About",   id: "about"   },
   { label: "Lab",     id: "lab"     },
@@ -12,6 +11,7 @@ const NAV = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState("");
+  const [open, setOpen]         = useState(false);
 
   useEffect(() => {
     const ALL_IDS = ["hero", "about", "lab", "game", "contact"];
@@ -32,120 +32,208 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const scrollTo = (id) => {
+    setOpen(false);
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  };
 
   return (
-    <header
-      style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        zIndex: 50,
-        background: scrolled ? "rgba(0,0,0,0.80)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
-        transition: "background 0.35s, border-color 0.35s",
-      }}
-    >
-      <div
-        className="max-w-6xl mx-auto px-6 flex items-center justify-between"
-        style={{ height: 64 }}
+    <>
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          width: "100%",
+          zIndex: 50,
+          background: scrolled || open ? "rgba(0,0,0,0.88)" : "transparent",
+          backdropFilter: scrolled || open ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled || open ? "blur(20px)" : "none",
+          borderBottom: scrolled && !open ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
+          transition: "background 0.35s, border-color 0.35s",
+        }}
       >
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between" style={{ height: 64 }}>
 
-        <button
-          onClick={() => scrollTo("hero")}
-          style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
-        >
-          <span
-            className="font-season"
-            style={{ fontSize: 20, letterSpacing: "-0.01em", color: "#fff", lineHeight: 1 }}
+          <button
+            onClick={() => scrollTo("hero")}
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
           >
-            Adnan Sheikh
-          </span>
-        </button>
+            <span className="font-season" style={{ fontSize: 20, letterSpacing: "-0.01em", color: "#fff", lineHeight: 1 }}>
+              Adnan Sheikh
+            </span>
+          </button>
 
+          <div className="hidden md:flex items-center">
+            <nav className="flex items-center mr-4">
+              {NAV.map((item) => {
+                const isActive = active === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollTo(item.id)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      padding: "0 14px",
+                      height: 64,
+                      cursor: "pointer",
+                      fontFamily: "'Matter', sans-serif",
+                      fontSize: 12,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: isActive ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.35)",
+                      transition: "color 0.2s",
+                      position: "relative",
+                    }}
+                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.65)"; }}
+                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.35)"; }}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <span style={{
+                        position: "absolute", bottom: 13, left: "50%",
+                        transform: "translateX(-50%)", width: 3, height: 3,
+                        borderRadius: "50%", background: "rgba(255,255,255,0.55)",
+                      }} />
+                    )}
+                  </button>
+                );
+              })}
+            </nav>
 
-        <div style={{ display: "flex", alignItems: "center" }}>
+            <a
+              href="/resume.pdf"
+              download
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                fontFamily: "'Matter', sans-serif", fontSize: 11,
+                letterSpacing: "0.1em", textTransform: "uppercase",
+                fontWeight: 600, padding: "9px 16px",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.38)",
+                textDecoration: "none", marginRight: 8, transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; e.currentTarget.style.color = "rgba(255,255,255,0.75)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.color = "rgba(255,255,255,0.38)"; }}
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v6M2 7l3 2 3-2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              CV
+            </a>
 
+            <button
+              onClick={() => scrollTo("lab")}
+              style={{
+                fontFamily: "'Matter', sans-serif", fontSize: 11,
+                letterSpacing: "0.12em", textTransform: "uppercase",
+                fontWeight: 600, padding: "9px 22px",
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.14)",
+                color: "rgba(255,255,255,0.7)", cursor: "pointer", transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#000"; e.currentTarget.style.borderColor = "#fff"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)"; }}
+            >
+              View Lab
+            </button>
+          </div>
 
-          <nav style={{ display: "flex", alignItems: "center", marginRight: 16 }}>
-            {NAV.map((item) => {
-              const isActive = active === item.id;
-              return (
+          <button
+            onClick={() => setOpen((o) => !o)}
+            className="md:hidden flex flex-col justify-center items-center gap-[5px]"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, width: 36, height: 36 }}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            <span style={{
+              display: "block", width: 20, height: 1.5,
+              background: "#fff",
+              transform: open ? "translateY(6.5px) rotate(45deg)" : "none",
+              transition: "transform 0.25s ease",
+            }} />
+            <span style={{
+              display: "block", width: 20, height: 1.5,
+              background: "#fff",
+              opacity: open ? 0 : 1,
+              transition: "opacity 0.2s ease",
+            }} />
+            <span style={{
+              display: "block", width: 20, height: 1.5,
+              background: "#fff",
+              transform: open ? "translateY(-6.5px) rotate(-45deg)" : "none",
+              transition: "transform 0.25s ease",
+            }} />
+          </button>
+        </div>
+
+        {open && (
+          <div
+            className="md:hidden border-t border-white/8"
+            style={{ background: "rgba(0,0,0,0.95)" }}
+          >
+            <nav className="flex flex-col max-w-6xl mx-auto px-6 py-4">
+              {NAV.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
                   style={{
                     background: "none", border: "none",
-                    padding: "0 14px", height: 64,
-                    cursor: "pointer",
+                    padding: "14px 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    cursor: "pointer", textAlign: "left",
                     fontFamily: "'Matter', sans-serif",
-                    fontSize: 12, letterSpacing: "0.1em",
+                    fontSize: 13, letterSpacing: "0.1em",
                     textTransform: "uppercase",
-                    color: isActive ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.35)",
-                    transition: "color 0.2s",
-                    position: "relative",
+                    color: active === item.id ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.4)",
                   }}
-                  onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.65)"; }}
-                  onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = "rgba(255,255,255,0.35)"; }}
                 >
                   {item.label}
-                  {isActive && (
-                    <span style={{
-                      position: "absolute", bottom: 13,
-                      left: "50%", transform: "translateX(-50%)",
-                      width: 3, height: 3, borderRadius: "50%",
-                      background: "rgba(255,255,255,0.55)",
-                    }} />
-                  )}
                 </button>
-              );
-            })}
-          </nav>
+              ))}
 
-
-          <a
-            href="/resume.pdf"
-            download
-            title="Download resume"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              fontFamily: "'Matter', sans-serif", fontSize: 11,
-              letterSpacing: "0.1em", textTransform: "uppercase",
-              fontWeight: 600, padding: "9px 16px",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: "rgba(255,255,255,0.38)",
-              textDecoration: "none", marginRight: 8, transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.28)"; e.currentTarget.style.color = "rgba(255,255,255,0.75)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.color = "rgba(255,255,255,0.38)"; }}
-          >
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ flexShrink: 0 }}>
-              <path d="M5 1v6M2 7l3 2 3-2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            CV
-          </a>
-
-
-          <button
-            onClick={() => scrollTo("lab")}
-            style={{
-              fontFamily: "'Matter', sans-serif", fontSize: 11,
-              letterSpacing: "0.12em", textTransform: "uppercase",
-              fontWeight: 600, padding: "9px 22px",
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.14)",
-              color: "rgba(255,255,255,0.7)", cursor: "pointer", transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#000"; e.currentTarget.style.borderColor = "#fff"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)"; }}
-          >
-            View Lab
-          </button>
-        </div>
-      </div>
-    </header>
+              <div className="flex items-center gap-3 pt-5 pb-2">
+                <a
+                  href="/resume.pdf"
+                  download
+                  style={{
+                    flex: 1, display: "flex", alignItems: "center",
+                    justifyContent: "center", gap: 6,
+                    fontFamily: "'Matter', sans-serif", fontSize: 11,
+                    letterSpacing: "0.12em", textTransform: "uppercase",
+                    fontWeight: 600, padding: "11px 0",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    color: "rgba(255,255,255,0.5)", textDecoration: "none",
+                  }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M5 1v6M2 7l3 2 3-2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Download CV
+                </a>
+                <button
+                  onClick={() => scrollTo("lab")}
+                  style={{
+                    flex: 1, fontFamily: "'Matter', sans-serif", fontSize: 11,
+                    letterSpacing: "0.12em", textTransform: "uppercase",
+                    fontWeight: 600, padding: "11px 0",
+                    background: "#fff", color: "#000", border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  View Lab
+                </button>
+              </div>
+            </nav>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
