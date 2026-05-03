@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Full‑Stack Developer Portfolio – Adnan Sheikh
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-black?logo=tailwindcss)
+![React](https://img.shields.io/badge/React-18-black?logo=react)
 
-First, run the development server:
+**[adnansheikh.com](https://adnansheikh.com)** – An interactive portfolio and lab manual for the **Full‑Stack Web Development** course. It contains live, runnable examples of HTML, CSS, JavaScript, React, and PHP assignments, complete with source code and instant output previews.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project serves as a practical record of all lab assignments. Each problem is presented as a card with:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Full original source code** (syntax‑highlighted, copyable)
+- **Live output** – interactive demos that run directly in the browser (HTML/CSS/JS/React) or simulated PHP behaviours using JS
+- **Language‑coloured tags** (HTML, CSS, JS, React, PHP) with hover shadows
+- **Search & filter** by language or title
+- **Paginated grid** (12 cards, “View more” button)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Additional sections include:
 
-## Learn More
+- **Tech scroller** – animated horizontal marquee of technologies used
+- **Memory card game** – built with React hooks (emoji match)
+- **About me** – photo, bio, and a favourite quote
+- **Contact form** – simple name/email/message (alert simulation)
+- **Glass‑style header** with smooth navigation
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) + custom CSS (no external UI libs)
+- **Fonts:** Season Serif (headings), Matter (body), JetBrains Mono (code blocks)
+- **Deployment:** [Vercel](https://vercel.com/) (continuous integration from GitHub)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features
 
-## Deploy on Vercel
+- **100% black/white minimal theme** (no rounded corners on cards, but soft radius kept on buttons and modals)
+- **Glassy header** with scroll‑aware background blur
+- **Hero section** – clean, centred message with two CTAs
+- **Lab section** – 3‑column responsive grid, source code drawer with syntax‑highlighted code, live output inside an iframe (supports HTML/CSS/JS/React)
+- **All problems included** (33+ problems covering all lab topics)
+- **Mobile‑first** and fully responsive
+- **Easter egg** – Konami code (`↑↑↓↓←→←→BA`) triggers a secret alert
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🌟 Live Demo
+Visit adnansheikh.com to see the latest version in action.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📄 License
+MIT © Adnan Sheikh
