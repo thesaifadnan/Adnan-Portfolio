@@ -34,13 +34,10 @@ function LabCard({ q, index, onOpen }) {
       className="group relative flex flex-col bg-black border border-white/8 hover:border-white/20 transition-all duration-300 overflow-hidden"
       style={{ "--accent": c.accent }}
     >
-
       <div
         className="absolute left-0 top-0 bottom-0 w-[2px] transition-all duration-300 opacity-0 group-hover:opacity-100"
         style={{ background: c.accent }}
       />
-
-
       <span
         className="absolute right-4 bottom-2 font-season font-bold leading-none select-none pointer-events-none"
         style={{
@@ -51,9 +48,7 @@ function LabCard({ q, index, onOpen }) {
       >
         {String(index + 1).padStart(2, "0")}
       </span>
-
       <div className="relative z-10 flex flex-col flex-1 p-6">
-
         <div className="flex items-center justify-between mb-5">
           <span className={`text-[10px] uppercase tracking-[0.16em] border px-2.5 py-1 font-matter font-semibold ${c.pill}`}>
             {q.lang}
@@ -63,20 +58,15 @@ function LabCard({ q, index, onOpen }) {
           </span>
         </div>
 
-
-        <h3 className="font-season text-[19px] leading-snug tracking-tight text-white mb-2.5 group-hover:text-white transition-colors">
+        {/* Title now uses Matter font – more readable */}
+        <h3 className="font-matter text-[20px] leading-tight tracking-[-0.01em] font-medium text-white mb-2.5 group-hover:text-white transition-colors">
           {q.title}
         </h3>
-
 
         <p className="text-white/40 text-[13px] leading-relaxed font-matter font-light line-clamp-2 flex-1">
           {q.question}
         </p>
-
-
         <div className="mt-5 mb-4 border-t border-white/6" />
-
-
         <div className="flex items-center gap-2">
           <button
             onClick={() => onOpen(q, "code")}
@@ -101,13 +91,11 @@ function Drawer({ item, view, setView, onClose }) {
   const [copied, copy] = useCopy();
   const c = lang(item.lang);
 
-
   useEffect(() => {
     const fn = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
   }, [onClose]);
-
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -116,15 +104,12 @@ function Drawer({ item, view, setView, onClose }) {
 
   return (
     <>
-
       <div
-        className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+        className="fixed inset-0 z-40 bg-black/70"
         onClick={onClose}
       />
 
-
       <div className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-3xl bg-[#050505] border-l border-white/10 flex flex-col drawer-transition">
-
 
         <div className="flex items-start justify-between px-7 py-6 border-b border-white/8 shrink-0">
           <div className="flex-1 min-w-0 pr-4">
@@ -150,7 +135,6 @@ function Drawer({ item, view, setView, onClose }) {
           </button>
         </div>
 
-
         <div className="flex border-b border-white/8 px-7 shrink-0">
           {["code", "output", "question"].map((tab) => (
             <button
@@ -166,7 +150,6 @@ function Drawer({ item, view, setView, onClose }) {
             </button>
           ))}
         </div>
-
 
         <div className="flex-1 overflow-auto">
           {view === "code" && (
@@ -191,7 +174,6 @@ function Drawer({ item, view, setView, onClose }) {
                   {copied ? "✓ Copied" : "Copy"}
                 </button>
               </div>
-
 
               <div className="flex overflow-x-auto">
 
@@ -292,7 +274,6 @@ export default function LabSection() {
   return (
     <section id="lab" className="max-w-6xl mx-auto px-6 py-24">
 
-
       <div className="pt-8 mb-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -309,7 +290,6 @@ export default function LabSection() {
           </p>
         </div>
       </div>
-
 
       <div className="flex flex-col md:flex-row gap-4 mb-10">
         <div className="relative flex-1 max-w-xs">
@@ -342,20 +322,17 @@ export default function LabSection() {
         </div>
       </div>
 
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/6">
         {displayed.map((q, i) => (
           <LabCard key={q.id} q={q} index={i} onOpen={openDrawer} />
         ))}
       </div>
 
-
       {displayed.length === 0 && (
         <div className="py-20 text-center">
           <p className="text-white/20 text-[13px] font-matter tracking-[0.12em] uppercase">No results found</p>
         </div>
       )}
-
 
       {hasMore && (
         <div className="flex justify-center mt-12">
@@ -367,7 +344,6 @@ export default function LabSection() {
           </button>
         </div>
       )}
-
 
       {selected && (
         <Drawer
