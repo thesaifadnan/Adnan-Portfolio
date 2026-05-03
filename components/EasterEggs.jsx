@@ -15,7 +15,7 @@ const TERMINAL_OUTPUT = [
   { delay: 1100, text: "> you found the easter egg.",     color: "rgba(255,255,255,0.5)"  },
   { delay: 1600, text: "> built with care at 2am.",       color: "rgba(255,255,255,0.35)" },
   { delay: 2100, text: "> every output actually runs.",   color: "rgba(255,255,255,0.35)" },
-  { delay: 2600, text: "> konami code still works in 2025. respect.", color: "rgba(255,255,255,0.25)" },
+  { delay: 2600, text: "> konami code still works in 2026. respect.", color: "rgba(255,255,255,0.25)" },
   { delay: 3200, text: "$ _",                             color: "rgba(255,255,255,0.6)",  blink: true },
 ];
 
